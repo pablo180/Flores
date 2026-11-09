@@ -17,6 +17,37 @@
             pointer-events: none;
             z-index: 9999;
         }
+
+        /* Posicionamiento y animación para las 3 flores adicionales (4, 5 y 6) */
+        .flower--4 {
+            left: -25vmin;
+            transform: rotate(-15deg) scale(0.85);
+            animation: moving-flower-1 4.2s linear infinite;
+        }
+        .flower--4 .flower__line {
+            height: 48vmin;
+            animation-delay: 0.6s;
+        }
+
+        .flower--5 {
+            left: 28vmin;
+            transform: rotate(12deg) scale(0.9);
+            animation: moving-flower-2 3.8s linear infinite;
+        }
+        .flower--5 .flower__line {
+            height: 52vmin;
+            animation-delay: 0.9s;
+        }
+
+        .flower--6 {
+            left: -12vmin;
+            transform: rotate(-8deg) scale(0.75);
+            animation: moving-flower-3 4.5s linear infinite;
+        }
+        .flower--6 .flower__line {
+            height: 42vmin;
+            animation-delay: 1.2s;
+        }
     </style>
 </head>
 
@@ -25,207 +56,9 @@
 
     <div class="night"></div>
     <div class="flowers">
-      <!-- (Tus elementos de flores originales se quedan igual) -->
+      <!-- Flor 1 (Original) -->
       <div class="flower flower--1">
         <div class="flower__leafs flower__leafs--1">
           <div class="flower__leaf flower__leaf--1"></div>
           <div class="flower__leaf flower__leaf--2"></div>
-          <div class="flower__leaf flower__leaf--3"></div>
-          <div class="flower__leaf flower__leaf--4"></div>
-          <div class="flower__white-circle"></div>
-          <div class="flower__light flower__light--1"></div>
-          <div class="flower__light flower__light--2"></div>
-          <div class="flower__light flower__light--3"></div>
-          <div class="flower__light flower__light--4"></div>
-          <div class="flower__light flower__light--5"></div>
-          <div class="flower__light flower__light--6"></div>
-          <div class="flower__light flower__light--7"></div>
-          <div class="flower__light flower__light--8"></div>
-        </div>
-        <div class="flower__line">
-          <div class="flower__line__leaf flower__line__leaf--1"></div>
-          <div class="flower__line__leaf flower__line__leaf--2"></div>
-          <div class="flower__line__leaf flower__line__leaf--3"></div>
-          <div class="flower__line__leaf flower__line__leaf--4"></div>
-          <div class="flower__line__leaf flower__line__leaf--5"></div>
-          <div class="flower__line__leaf flower__line__leaf--6"></div>
-        </div>
-      </div>
-  
-      <div class="flower flower--2">
-        <div class="flower__leafs flower__leafs--2">
-          <div class="flower__leaf flower__leaf--1"></div>
-          <div class="flower__leaf flower__leaf--2"></div>
-          <div class="flower__leaf flower__leaf--3"></div>
-          <div class="flower__leaf flower__leaf--4"></div>
-          <div class="flower__white-circle"></div>
-          <div class="flower__light flower__light--1"></div>
-          <div class="flower__light flower__light--2"></div>
-          <div class="flower__light flower__light--3"></div>
-          <div class="flower__light flower__light--4"></div>
-          <div class="flower__light flower__light--5"></div>
-          <div class="flower__light flower__light--6"></div>
-          <div class="flower__light flower__light--7"></div>
-          <div class="flower__light flower__light--8"></div>
-        </div>
-        <div class="flower__line">
-          <div class="flower__line__leaf flower__line__leaf--1"></div>
-          <div class="flower__line__leaf flower__line__leaf--2"></div>
-          <div class="flower__line__leaf flower__line__leaf--3"></div>
-          <div class="flower__line__leaf flower__line__leaf--4"></div>
-        </div>
-      </div>
-  
-      <div class="flower flower--3">
-        <div class="flower__leafs flower__leafs--3">
-          <div class="flower__leaf flower__leaf--1"></div>
-          <div class="flower__leaf flower__leaf--2"></div>
-          <div class="flower__leaf flower__leaf--3"></div>
-          <div class="flower__leaf flower__leaf--4"></div>
-          <div class="flower__white-circle"></div>
-          <div class="flower__light flower__light--1"></div>
-          <div class="flower__light flower__light--2"></div>
-          <div class="flower__light flower__light--3"></div>
-          <div class="flower__light flower__light--4"></div>
-          <div class="flower__light flower__light--5"></div>
-          <div class="flower__light flower__light--6"></div>
-          <div class="flower__light flower__light--7"></div>
-          <div class="flower__light flower__light--8"></div>
-        </div>
-        <div class="flower__line">
-          <div class="flower__line__leaf flower__line__leaf--1"></div>
-          <div class="flower__line__leaf flower__line__leaf--2"></div>
-          <div class="flower__line__leaf flower__line__leaf--3"></div>
-          <div class="flower__line__leaf flower__line__leaf--4"></div>
-        </div>
-      </div>
-    </div>
-
-    <script src="main.js"></script>
-    <script>
-        const canvas = document.getElementById('fireworks-canvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                const angle = Math.random() * Math.PI * 2;
-                // Mayor velocidad para que la explosión sea más grande y amplia
-                const speed = Math.random() * 9 + 3;
-                this.vx = Math.cos(angle) * speed;
-                this.vy = Math.sin(angle) * speed;
-                this.alpha = 1;
-                this.friction = 0.96; // Fricción suave para que duren más recorriendo distancia
-                this.gravity = 0.05;  // Menor gravedad para que floten más tiempo en el aire
-                this.decay = Math.random() * 0.008 + 0.008; // Se desvanecen mucho más lento (duran más)
-                this.size = Math.random() * 3.5 + 2;
-            }
-
-            update() {
-                this.vx *= this.friction;
-                this.vy *= this.friction;
-                this.vy += this.gravity;
-                this.x += this.vx;
-                this.y += this.vy;
-                this.alpha -= this.decay;
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.beginPath();
-                // Dibujamos pétalos/estrellitas brillantes en lugar de círculos planos
-                ctx.ellipse(this.x, this.y, this.size * 1.5, this.size, Math.random() * Math.PI, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        class Firework {
-            constructor(startX, startY, targetX, targetY) {
-                this.x = startX;
-                this.y = startY;
-                this.targetX = targetX;
-                this.targetY = targetY;
-                const angle = Math.atan2(targetY - startY, targetX - startX);
-                const speed = 14;
-                this.vx = Math.cos(angle) * speed;
-                this.vy = Math.sin(angle) * speed;
-                this.particles = [];
-                this.exploded = false;
-                // Colores vibrantes acordes al jardín nocturno
-                this.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
-            }
-
-            update() {
-                if (!this.exploded) {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    if (Math.abs(this.targetY - this.y) < 20 || this.vy >= 0) {
-                        this.exploded = true;
-                        // Más partículas (100 en lugar de 60) para una explosión grande y tupida tipo flor
-                        for (let i = 0; i < 100; i++) {
-                            this.particles.push(new Particle(this.targetX, this.targetY, this.color));
-                        }
-                    }
-                } else {
-                    this.particles.forEach(p => p.update());
-                    this.particles = this.particles.filter(p => p.alpha > 0);
-                }
-            }
-
-            draw() {
-                if (!this.exploded) {
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.shadowBlur = 10;
-                    ctx.shadowColor = this.color;
-                    ctx.fill();
-                    ctx.restore();
-                } else {
-                    this.particles.forEach(p => p.draw());
-                }
-            }
-        }
-
-        let fireworks = [];
-
-        window.addEventListener('click', (e) => {
-            const startX = window.innerWidth / 2;
-            const startY = window.innerHeight;
-            const targetX = e.clientX;
-            const targetY = e.clientY;
-            fireworks.push(new Firework(startX, startY, targetX, targetY));
-        });
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            fireworks.forEach((firework, index) => {
-                firework.update();
-                firework.draw();
-                if (firework.exploded && firework.particles.length === 0) {
-                    fireworks.splice(index, 1);
-                }
-            });
-        }
-
-        animate();
-    </script>
-</body>
-</html>
+          <div class="flower__leaf flower__leaf--
